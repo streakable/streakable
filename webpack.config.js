@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function join(dest) { return path.resolve(__dirname, dest); }
 
@@ -10,12 +11,12 @@ function web(dest) { return join('web/static/' + dest); }
 const config = module.exports = {
   entry: './web/static/js/app.js',
   output: {
-    path: './priv/static/js',
-    filename: 'app.js',
+    path: './priv/static',
+    filename: 'js/app.js',
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.sass'],
+    extensions: ['', '.js', '.jsx'],
     modulesDirectories: ['node_modules'],
   },
 
@@ -32,7 +33,18 @@ const config = module.exports = {
         },
       }
     ],
-  }
+  },
+
+  plugins: [
+    new CopyWebpackPlugin([{
+      context: './web/static/assets/',
+      from: '**/*'
+    }]),
+    new CopyWebpackPlugin([{
+      context: './web/static/',
+      from: 'css/**/*'
+    }])
+  ]
 };
 
 if (process.env.NODE_ENV === 'production') {
