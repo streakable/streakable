@@ -1,0 +1,6 @@
+<h2>Edit objective</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: objective_path(@conn, :update, @objective) %>
+
+<%= link "Back", to: objective_path(@conn, :index) %>

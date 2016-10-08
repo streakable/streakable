@@ -1,0 +1,29 @@
+<h2>Listing objective</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for objective <- @objective do %>
+    <tr>
+      <td><%= objective.name %></td>
+      <td><%= objective.description %></td>
+      <td><%= objective.frequency %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: objective_path(@conn, :show, objective), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: objective_path(@conn, :edit, objective), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: objective_path(@conn, :delete, objective), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New objective", to: objective_path(@conn, :new) %>

@@ -16,6 +16,8 @@ defmodule Streakable.Router do
   scope "/", Streakable do
     pipe_through :browser # Use the default browser stack
 
+    resources "/objectives", ObjectiveController
+
     get "/", PageController, :index
   end
 

@@ -1,0 +1,23 @@
+<h2>Show objective</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @objective.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @objective.description %>
+  </li>
+
+  <li>
+    <strong>Frequency:</strong>
+    <%= @objective.frequency %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: objective_path(@conn, :edit, @objective) %>
+<%= link "Back", to: objective_path(@conn, :index) %>
