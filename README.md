@@ -1,6 +1,6 @@
 # streakable
 
-## What's is this?
+## What's this?
 
 Streakable is the web service that helps you to keep tryin' like github streak.
 You can record your contributions for your target,
