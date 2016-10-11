@@ -10,8 +10,12 @@ and streakable visualizes your contributions.
 ## Development
 
 1. Install [asdf][] and run `asdf install`
-2. Install posgresql and create postgres(pass: postgres) user
-3. Run below:
+2. Install posgresql
+3. Create "postgres" role (password: "postgres"):
+   ```shell
+   createuser -d -U your_name -P postgres`
+   ```
+4. Run below:
 
     ```shell
     npm install
