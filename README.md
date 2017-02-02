@@ -16,13 +16,22 @@ and streakable visualizes your contributions.
    ```shell
    createuser -d -U your_name -P postgres`
    ```
-5. Run below:
-
+5. Install dependencies
+   ```shell
+   mix deps.get
+   yarn install
+   ```
+6. Start postgres if it doesn't run
+   ```shell
+   pg_ctl start
+   ```
+7. Setup database
+   ```shell
+   mix ecto.create
+   mix ecto.migrate
+   ```
+8. Run below:
     ```shell
-    mix deps.get
-    mix ecto.create
-    mix ecto.migrate
-    yarn install
     mix phoenix.server
     ```
 
