@@ -3,7 +3,7 @@ defmodule Streakable.ObjectiveTest do
 
   alias Streakable.Objective
 
-  @valid_attrs %{description: "some content", name: "some content"}
+  @valid_attrs %{description: "some content", frequency: 42, name: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

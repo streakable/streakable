@@ -5,6 +5,7 @@ defmodule Streakable.Objective do
     field :name       , :string
     field :description, :string
     field :frequency  , :integer
+    belongs_to :user  , Streakable.User
 
     timestamps()
   end
