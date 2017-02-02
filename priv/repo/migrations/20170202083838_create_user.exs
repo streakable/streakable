@@ -3,8 +3,8 @@ defmodule Streakable.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :email        , :string, default: "member", null: false
-      add :name         , :string, default: "member", null: false
+      add :email        , :string, null: false
+      add :name         , :string, null: false
       add :password_hash, :string
       add :type         , :string, default: "member", null: false
 
