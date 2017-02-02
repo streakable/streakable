@@ -10,18 +10,19 @@ and streakable visualizes your contributions.
 ## Development
 
 1. Install [asdf][] and run `asdf install`
-2. Install posgresql
-3. Create "postgres" role (password: "postgres"):
+2. npm install --global yarn
+3. Install posgresql
+4. Create "postgres" role (password: "postgres"):
    ```shell
    createuser -d -U your_name -P postgres`
    ```
-4. Run below:
+5. Run below:
 
     ```shell
-    npm install
     mix deps.get
     mix ecto.create
     mix ecto.migrate
+    yarn install
     mix phoenix.server
     ```
 
