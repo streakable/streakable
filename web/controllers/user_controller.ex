@@ -18,10 +18,10 @@ defmodule Streakable.UserController do
   def create(conn, %{"user" => user_params}) do
     changeset = %User{type: "member"} |> User.registration_changeset(user_params)
 
-    IO.inspect changeset
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
+        |> Streakable.Auth.login(user)
         |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
