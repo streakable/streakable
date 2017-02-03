@@ -19,6 +19,11 @@ defmodule Streakable.Router do
     plug Streakable.CurrentUser
   end
 
+  pipeline :login_required do
+    plug Guardian.Plug.EnsureAuthenticated,
+         handler: Streakable.GuardianErrorHandler
+  end
+
   scope "/", Streakable do
     pipe_through [:browser, :with_session]
 
@@ -27,6 +32,15 @@ defmodule Streakable.Router do
     resources "/objectives", ObjectiveController
 
     get "/", PageController, :index
+
+    scope "/" do
+      pipe_through [:login_required]
+
+      resources "/users", UserController, only: [:show] do
+        resources "/objectives", ObjectiveController
+        resources "/contributions", ObjectiveController
+      end
+    end
   end
 
   # Other scopes may use custom stacks.
