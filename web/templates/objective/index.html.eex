@@ -1,4 +1,7 @@
-<h2>Listing objective</h2>
+<%= if @current_user.id == @user.id do %>
+  <h1>My Objectives</h1>
+  <%= @user.name %>'s Objectives</h1>
+<% end %>
 
 <table class="table">
   <thead>
@@ -10,16 +13,16 @@
     </tr>
   </thead>
   <tbody>
-<%= for objective <- @objective do %>
+<%= for objective <- @objectives do %>
     <tr>
       <td><%= objective.name %></td>
       <td><%= objective.description %></td>
       <td><%= objective.frequency %></td>
 
       <td class="text-right">
-        <%= link "Show", to: objective_path(@conn, :show, objective), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: objective_path(@conn, :edit, objective), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: objective_path(@conn, :delete, objective), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show"  , to: user_objective_path(@conn, :show  , @current_user, objective), class: "btn btn-default btn-xs" %>
+        <%= link "Edit"  , to: user_objective_path(@conn, :edit  , @current_user, objective), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_objective_path(@conn, :delete, @current_user, objective), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
