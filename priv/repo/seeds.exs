@@ -1,11 +1,13 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Streakable.Repo.insert!(%Streakable.SomeModel{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias Streakable.Repo
+alias Streakable.User
+
+admin_params = %{name:     "Admin User",
+                 email:    "admin@streakable.com",
+                 password: "streakable",
+                 type:     "admin"}
+
+unless Repo.get_by(User, email: admin_params[:email]) do
+  %User{}
+  |> User.registration_changeset(admin_params)
+  |> Repo.insert!
+end
