@@ -23,6 +23,11 @@
                                                            :index,
                                                            @current_user) %>
             </li>
+            <%= if @current_user.type == "admin" do %>
+              <li>
+                <%= link "Users", to: admin_user_path(@conn, :index) %>
+              </li>
+            <% end %>
             <li>
               <%= link "Sign out", to: session_path(@conn, :delete,
                                                     @current_user),

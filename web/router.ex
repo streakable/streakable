@@ -24,6 +24,10 @@ defmodule Streakable.Router do
          handler: Streakable.GuardianErrorHandler
   end
 
+  pipeline :admin_required do
+    plug Streakable.CheckAdmin
+  end
+
   scope "/", Streakable do
     pipe_through [:browser, :with_session]
 
@@ -39,6 +43,13 @@ defmodule Streakable.Router do
       resources "/users", UserController, only: [:show] do
         resources "/objectives", ObjectiveController
         resources "/contributions", ObjectiveController
+      end
+    end
+    scope "/admin", Admin, as: :admin do
+      pipe_through [:admin_required]
+
+      resources "/users", UserController, only: [:index, :show] do
+        resources "/objectives", ObjectiveController, only: [:index, :show]
       end
     end
   end
