@@ -47,7 +47,7 @@ defmodule Streakable.ObjectiveController do
     end
   end
 
-  def show(conn, %{"user_id" => user_id, "id" => id}, current_user) do
+  def show(conn, %{"user_id" => user_id, "id" => id}, _current_user) do
     user      = User |> Repo.get!(user_id)
     objective = user |> user_objective_by_id(id) |> Repo.preload(:user)
     render(conn, "show.html", objective: objective, user: user)
