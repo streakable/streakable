@@ -80,9 +80,9 @@ defmodule Streakable.ObjectiveController do
     end
   end
 
-  def delete(conn, %{"user_id": user_id, "id" => id}, current_user) do
+  def delete(conn, %{"user_id" => user_id, "id" => id}, current_user) do
     user      = User |> Repo.get!(user_id)
-    objective = user_objective_by_id(id) |> Repo.preload(:user)
+    objective = user |> user_objective_by_id(id) |> Repo.preload(:user)
 
     if current_user.id == objective.user.id || current_user.type == "admin" do
       Repo.delete!(objective)
@@ -94,6 +94,7 @@ defmodule Streakable.ObjectiveController do
       conn
       |> put_flash(:info, "You can't delete this post")
       |> redirect(to: user_objective_path(conn, :show, user.id, objective.id))
+    end
   end
 
   defp user_objectives(user) do
