@@ -10,6 +10,7 @@
       <th>Description</th>
 
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,9 @@
         <%= link "Show"  , to: user_objective_path(@conn, :show  , @current_user, objective), class: "btn btn-default btn-xs" %>
         <%= link "Edit"  , to: user_objective_path(@conn, :edit  , @current_user, objective), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: user_objective_path(@conn, :delete, @current_user, objective), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+      <td class="text-right">
+        <%= link "Contributions", to: user_contribution_path(@conn, :index, @current_user), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

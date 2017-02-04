@@ -11,7 +11,7 @@ defmodule Streakable.ObjectiveController do
       [conn, conn.params, conn.assigns.current_user])
   end
 
-  def index(conn, %{"user_id" => user_id} , _current_user) do
+  def index(conn, %{"user_id" => user_id}, _current_user) do
     user = User |> Repo.get!(user_id)
 
     objectives =
@@ -92,7 +92,7 @@ defmodule Streakable.ObjectiveController do
       |> redirect(to: user_objective_path(conn, :index, current_user.id))
     else
       conn
-      |> put_flash(:info, "You can't delete this post")
+      |> put_flash(:info, "You can't delete this objective")
       |> redirect(to: user_objective_path(conn, :show, user.id, objective.id))
     end
   end
