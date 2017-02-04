@@ -42,7 +42,7 @@ defmodule Streakable.Router do
 
       resources "/users", UserController, only: [:show] do
         resources "/objectives", ObjectiveController
-        resources "/contributions", ObjectiveController
+        resources "/contributions", ContributionController
       end
     end
     scope "/admin", Admin, as: :admin do
