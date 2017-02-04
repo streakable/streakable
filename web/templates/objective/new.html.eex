@@ -3,4 +3,4 @@
 <%= render "form.html", changeset: @changeset,
                         action: user_objective_path(@conn, :create, @current_user) %>
 
-<%= link "Back", to: objective_path(@conn, :index) %>
+<%= link "Back", to: user_objective_path(@conn, :index, @current_user) %>
