@@ -1,0 +1,6 @@
+<h2>New Contribution</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_contribution_path(@conn, :create, @current_user) %>
+
+<%= link "Back", to: user_contribution_path(@conn, :index, @current_user) %>
