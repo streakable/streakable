@@ -1,4 +1,4 @@
-# streakable
+# streakable [![Build Status](https://travis-ci.org/streakable/streakable.svg?branch=master)](https://travis-ci.org/streakable/streakable)
 
 ## What's this?
 
