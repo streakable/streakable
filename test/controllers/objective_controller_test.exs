@@ -3,7 +3,7 @@ defmodule Streakable.ObjectiveControllerTest do
 
   alias Streakable.User
   alias Streakable.Objective
-  @valid_attrs %{description: "some content", name: "some content", frequency: 1}
+  @valid_attrs %{description: "some content", name: "some content"}
   @invalid_attrs %{name: nil}
 
   @user_params %{
@@ -16,7 +16,6 @@ defmodule Streakable.ObjectiveControllerTest do
   @objective_params %{
     name:        "programming",
     description: "programming",
-    frequency:   1,
   }
 
   setup do

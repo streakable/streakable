@@ -14,11 +14,6 @@
     <%= @objective.description %>
   </li>
 
-  <li>
-    <strong>Frequency:</strong>
-    <%= @objective.frequency %>
-  </li>
-
 </ul>
 
 <%= if @current_user do %>

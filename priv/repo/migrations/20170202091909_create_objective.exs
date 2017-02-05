@@ -5,7 +5,6 @@ defmodule Streakable.Repo.Migrations.CreateObjective do
     create table(:objectives) do
       add :name, :string
       add :description, :string
-      add :frequency, :integer
       add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()
