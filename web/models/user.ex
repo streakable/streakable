@@ -35,7 +35,6 @@ defmodule Streakable.User do
   end
 
   defp hash_password(changeset) do
-    IO.inspect changeset
     case changeset do
       %Ecto.Changeset{valid?: true,
                       changes: %{password: password}} ->

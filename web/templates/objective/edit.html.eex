@@ -1,4 +1,4 @@
-<h2>Edit objective</h2>
+<h2>Edit Objective</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: user_objective_path(@conn, :update, @current_user.id, @objective) %>

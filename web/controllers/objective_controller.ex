@@ -49,8 +49,15 @@ defmodule Streakable.ObjectiveController do
 
   def show(conn, %{"user_id" => user_id, "id" => id}, _current_user) do
     user      = User |> Repo.get!(user_id)
-    objective = user |> user_objective_by_id(id) |> Repo.preload(:user)
-    render(conn, "show.html", objective: objective, user: user)
+    objective = user |> user_objective_by_id(id)
+    if objective do
+      objective = objective |> Repo.preload(:user)
+      render(conn, "show.html", objective: objective, user: user)
+    else
+      conn
+      |> put_status(:not_found)
+      |> render(Streakable.ErrorView, "404.html")
+    end
   end
 
   def edit(conn, %{"id" => id}, current_user) do
