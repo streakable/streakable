@@ -1,6 +1,6 @@
-<h2>New objective</h2>
+<h2>New Objective</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: objective_path(@conn, :create) %>
+                        action: user_objective_path(@conn, :create, @current_user) %>
 
-<%= link "Back", to: objective_path(@conn, :index) %>
+<%= link "Back", to: user_objective_path(@conn, :index, @current_user) %>

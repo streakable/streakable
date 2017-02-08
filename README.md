@@ -1,4 +1,4 @@
-# streakable
+# streakable [![Build Status](https://travis-ci.org/streakable/streakable.svg?branch=master)](https://travis-ci.org/streakable/streakable)
 
 ## What's this?
 
@@ -10,18 +10,28 @@ and streakable visualizes your contributions.
 ## Development
 
 1. Install [asdf][] and run `asdf install`
-2. Install posgresql
-3. Create "postgres" role (password: "postgres"):
+2. npm install --global yarn
+3. Install posgresql
+4. Create "postgres" role (password: "postgres"):
    ```shell
    createuser -d -U your_name -P postgres`
    ```
-4. Run below:
-
+5. Install dependencies
+   ```shell
+   mix deps.get
+   yarn install
+   ```
+6. Start postgres if it doesn't run
+   ```shell
+   pg_ctl start
+   ```
+7. Setup database
+   ```shell
+   mix ecto.create
+   mix ecto.migrate
+   ```
+8. Run below:
     ```shell
-    npm install
-    mix deps.get
-    mix ecto.create
-    mix ecto.migrate
     mix phoenix.server
     ```
 

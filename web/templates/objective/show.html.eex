@@ -1,4 +1,6 @@
-<h2>Show objective</h2>
+<h2>Show Objective</h2>
+
+<%= link "To List", to: user_objective_path(@conn, :index, @objective.user) %>
 
 <ul>
 
@@ -12,12 +14,14 @@
     <%= @objective.description %>
   </li>
 
-  <li>
-    <strong>Frequency:</strong>
-    <%= @objective.frequency %>
-  </li>
-
 </ul>
 
-<%= link "Edit", to: objective_path(@conn, :edit, @objective) %>
-<%= link "Back", to: objective_path(@conn, :index) %>
+<%= if @current_user do %>
+  <%= if @current_user.id == @user.id do %>
+    <%= link "Edit"  , to: user_objective_path(@conn, :edit  , @current_user, @objective), class: "btn btn-primary btn-xs" %>
+  <% end %>
+  <%= if @current_user.id == @user.id || @current_user.type == "admin" do %>
+    <%= link "Delete", to: user_objective_path(@conn, :delete, @current_user, @objective), class: "btn btn-danger btn-xs", data: [confirm: "Really?"] %>
+  <% end %>
+<% end %>
+<%= link "Back", to: user_objective_path(@conn, :index, @objective.user) %>

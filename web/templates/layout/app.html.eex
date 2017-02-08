@@ -13,6 +13,36 @@
   </head>
 
   <body>
+    <header class="header">
+      <nav role="navigation">
+        <ul class="nav nav-pills pull-right">
+          <%= if @current_user do %>
+            <li><%= @current_user.email %> (<%= @current_user.id %>)</li>
+            <li>
+              <%= link "My Objectives", to: user_objective_path(@conn,
+                                                           :index,
+                                                           @current_user) %>
+            </li>
+            <%= if @current_user.type == "admin" do %>
+              <li>
+                <%= link "Users", to: admin_user_path(@conn, :index) %>
+              </li>
+            <% end %>
+            <li>
+              <%= link "Sign out", to: session_path(@conn, :delete,
+                                                    @current_user),
+                                   method: "delete" %>
+            </li>
+          <%= else %>
+            <li><%= link "Register", to: user_path(@conn, :new) %></li>
+            <li><%= link "Sign in", to: session_path(@conn, :new) %></li>
+          <% end %>
+        </ul>
+      </nav>
+      <span class="logo"></span>
+    </header>
+    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <div class="container">
       <%= render @view_module, @view_template, assigns %>
     </div> <!-- /container -->

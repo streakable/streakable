@@ -2,9 +2,10 @@ defmodule Streakable.Objective do
   use Streakable.Web, :model
 
   schema "objectives" do
-    field :name       , :string
-    field :description, :string
-    field :frequency  , :integer
+    field :name            , :string
+    field :description     , :string
+    belongs_to :user       , Streakable.User
+    has_many :contributions, Streakable.Contribution
 
     timestamps()
   end
@@ -12,9 +13,12 @@ defmodule Streakable.Objective do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @required_fields ~w(name)a
+  @optional_fields ~w(description)a
+
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :description, :frequency])
-    |> validate_required([:name, :description, :frequency])
+    |> cast(params, [:name, :description])
+    |> validate_required([:name, :description])
   end
 end

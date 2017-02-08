@@ -1,0 +1,28 @@
+<%= if @current_user.id == @user.id do %>
+<h1>My Contributions</h1>
+<%= @user.name %>'s Contributions</h1>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>comment</th>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for contribution <- @contributions do %>
+    <tr>
+      <td><%= contribution.comment %></td>
+      <td><%= contribution.inserted_at %></td>
+
+      <td class="text-right">
+        <%= link "Delete", to: user_objective_contribution_path(@conn, :delete, @current_user, @objective, contribution), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link "New Contribution", to: user_objective_contribution_path(@conn, :new, @current_user, @objective) %>

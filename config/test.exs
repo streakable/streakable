@@ -17,3 +17,11 @@ config :streakable, Streakable.Repo,
   database: "streakable_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :guardian, Guardian,
+  issuer: "Streakable.#{Mix.env}",
+  ttl: {30, :days},
+  verity_issuer: true,
+  serializer: Streakable.GuardianSerializer,
+  secret_key: "rH8RxOuc7MBMyI3Zl8r4DOlmWNNBgARhbofZ6pfNJtsPfCs2nlWpwnJ+vUDv8ms1"
+

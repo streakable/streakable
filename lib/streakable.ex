@@ -28,4 +28,7 @@ defmodule Streakable do
     Streakable.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  def config({:system, env}), do: System.get_env(env)
+  def config(value), do: value
 end

@@ -13,3 +13,11 @@ config :streakable, Streakable.Repo,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
+
+config :guardian, Guardian,
+  issuer: "Streakable.#{Mix.env}",
+  ttl: {30, :days},
+  verity_issuer: true,
+  serializer: Streakable.GuardianSerializer,
+  secret_key: System.get_env("SECRET_KEY")
+
