@@ -41,8 +41,9 @@ defmodule Streakable.Router do
       pipe_through [:login_required]
 
       resources "/users", UserController, only: [:show] do
-        resources "/objectives", ObjectiveController
-        resources "/contributions", ContributionController
+        resources "/objectives", ObjectiveController do
+          resources "/contributions", ContributionController
+        end
       end
     end
     scope "/admin", Admin, as: :admin do

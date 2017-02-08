@@ -3,6 +3,7 @@ defmodule Streakable.ContributionController do
 
   alias Streakable.Contribution
   alias Streakable.User
+  alias Streakable.Objective
 
   plug :scrub_params, "contribution" when action in [:create]
 
@@ -11,66 +12,75 @@ defmodule Streakable.ContributionController do
       [conn, conn.params, conn.assigns.current_user])
   end
 
-  def index(conn, %{"user_id" => user_id}, _current_user) do
-    user = User |> Repo.get!(user_id)
+  def index(conn, %{"user_id" => user_id, "objective_id" => objective_id}, _current_user) do
+    user      = User      |> Repo.get!(user_id)
+    objective = Objective |> Repo.get!(objective_id)
 
     contributions =
-      user
-      |> user_contributions
+      objective
+      |> objective_contributions
       |> Repo.all
       |> Repo.preload(:user)
 
-    render(conn, "index.html", contributions: contributions, user: user)
+    render(conn, "index.html", contributions: contributions,
+                                        user: user,
+                                   objective: objective)
   end
 
-  def new(conn, _params, current_user) do
+  def new(conn, %{"objective_id" => objective_id}, current_user) do
+    objective = Objective |> Repo.get!(objective_id)
     changeset =
-      current_user
+      objective
       |> build_assoc(:contributions)
       |> Contribution.changeset
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, objective: objective)
   end
 
-  def create(conn, %{"contribution" => contribution_params}, current_user) do
+  def create(conn, %{"contribution" => contribution_params, "objective_id" => objective_id}, current_user) do
+    objective = Objective |> Repo.get!(objective_id)
     changeset =
-      current_user
-      |> build_assoc(:contributions)
-      |> Contribution.changeset(contribution_params)
-
+      Contribution.changeset(%Contribution{}, contribution_params)
+      |> Ecto.Changeset.put_assoc(:objective, objective)
+      |> Ecto.Changeset.put_assoc(:user, current_user)
     case Repo.insert(changeset) do
       {:ok, _contribution} ->
         conn
         |> put_flash(:info, "Contribution was created successfully.")
-        |> redirect(to: user_contribution_path(conn, :index, current_user.id))
+        |> redirect(to: user_objective_contribution_path(
+              conn,
+            :index,
+            current_user.id,
+            objective_id)
+        )
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def delete(conn, %{"user_id" => user_id, "id" => id}, current_user) do
-    user         = User |> Repo.get!(user_id)
-    contribution = user |> user_contribution_by_id(id) |> Repo.preload(:user)
+  def delete(conn, %{"user_id" => user_id, "objective_id" => objective_id, "id" => id}, current_user) do
+    objective    = Objective |> Repo.get!(objective_id)
+    contribution = objective |> objective_contribution_by_id(id) |> Repo.preload(:user)
 
     if current_user.id == contribution.user.id || current_user.type == "admin" do
       Repo.delete!(contribution)
 
       conn
       |> put_flash(:info, "Contribution was deleted successfully.")
-      |> redirect(to: user_contribution_path(conn, :index, current_user.id))
+      |> redirect(to: user_objective_contribution_path(conn, :index, current_user.id, objective_id))
     else
       conn
       |> put_flash(:info, "You can't delete this contribution")
-      |> redirect(to: user_contribution_path(conn, :show, user.id, contribution.id))
+      |> redirect(to: user_objective_contribution_path(conn, :show, user_id, objective_id, contribution.id))
     end
   end
 
-  defp user_contributions(user) do
-    assoc(user, :contributions)
+  defp objective_contributions(objective) do
+    assoc(objective, :contributions)
   end
 
-  defp user_contribution_by_id(user, contribution_id) do
-    user
-    |> user_contributions
+  defp objective_contribution_by_id(objective, contribution_id) do
+    objective
+    |> objective_contributions
     |> Repo.get(contribution_id)
   end
 end

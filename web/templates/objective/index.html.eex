@@ -25,7 +25,7 @@
         <%= link "Delete", to: user_objective_path(@conn, :delete, @current_user, objective), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
       <td class="text-right">
-        <%= link "Contributions", to: user_contribution_path(@conn, :index, @current_user), class: "btn btn-default btn-xs" %>
+        <%= link "Contributions", to: user_objective_contribution_path(@conn, :index, @current_user, objective), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

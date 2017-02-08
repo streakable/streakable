@@ -18,11 +18,11 @@
       <td><%= contribution.inserted_at %></td>
 
       <td class="text-right">
-        <%= link "Delete", to: user_contribution_path(@conn, :delete, @current_user, contribution), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Delete", to: user_objective_contribution_path(@conn, :delete, @current_user, @objective, contribution), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link "New Contribution", to: user_contribution_path(@conn, :new, @current_user) %>
+<%= link "New Contribution", to: user_objective_contribution_path(@conn, :new, @current_user, @objective) %>
